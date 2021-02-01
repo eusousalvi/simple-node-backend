@@ -8,6 +8,7 @@ module.exports = {
       const agrupamentos = await Agrupamento.findAll();
       return res.json(agrupamentos);
     } catch (error) {
+      logger(error, req);
       return res.json(error);
     }
   },
@@ -20,6 +21,7 @@ module.exports = {
       const agrupamentoSalvo = await Agrupamento.create(agrupamento);
       return res.json(agrupamentoSalvo);
     } catch (error) {
+      logger(error, req);
       return res.json(error);
     }
   },

@@ -3,11 +3,9 @@ const multer = require('multer');
 const multerConfig = require('./config/multer');
 const NormaController = require('./controllers/NormaController');
 const AgrupamentoController = require('./controllers/AgrupamentoController');
-const ArquivoController = require('./controllers/ArquivoController');
+const TipoArquivo = require('./controllers/TipoArquivoController');
 
-routes.post('/upload', multer(multerConfig).single('file'), (req, res) => {
-  return res.json(req.file);
-});
+routes.post('/tipos_arquivo', TipoArquivo.store);
 
 routes.post('/agrupamentos', AgrupamentoController.store);
 routes.get('/agrupamentos', AgrupamentoController.index);

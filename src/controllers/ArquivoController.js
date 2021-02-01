@@ -5,7 +5,7 @@ require('dotenv/config');
 //Controller para manipulação da tabela Arquivo
 module.exports = {
   // Salva um arquivo no Banco de Dados
-  async store(file, norma_id) {
+  async store(file, norma_id, req) {
     const tipo_id = await TipoArquivo.getId(file);
     const arquivo = {
       tipo_id,
@@ -20,6 +20,7 @@ module.exports = {
       const arquivoSalvo = await Arquivo.create(arquivo);
       return arquivoSalvo;
     } catch (error) {
+      logger(error, req);
       return error;
     }
   },

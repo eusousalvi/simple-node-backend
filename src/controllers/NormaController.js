@@ -1,6 +1,6 @@
 const Norma = require('../models/Norma');
 const Arquivo = require('../controllers/ArquivoController');
-const ArquivoModel = require('../models/Arquivo');
+const logger = require('../controllers/LoggerController');
 const { Op } = require('sequelize');
 
 //Controller para manipulação da tabela Norma
@@ -34,6 +34,7 @@ module.exports = {
 
       return res.json(norma);
     } catch (error) {
+      logger(error, req);
       return res.json(error);
     }
   },
@@ -45,9 +46,11 @@ module.exports = {
 
     try {
       const normaSalva = await Norma.create(norma);
-      await Arquivo.store(file, normaSalva.id);
+      await Arquivo.store(file, normaSalva.id, req);
+
       return res.json(normaSalva);
     } catch (error) {
+      logger(error, req);
       return res.json(error);
     }
   },
