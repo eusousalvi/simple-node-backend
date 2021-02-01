@@ -2,6 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 
+// Configurações do Middleware Multer para upload de arquivos
 module.exports = {
   dest: path.resolve(__dirname, '..', '..', 'uploads'),
   storage: multer.diskStorage({

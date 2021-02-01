@@ -4,16 +4,6 @@ class Arquivo extends Model {
   static init(sequelize) {
     super.init(
       {
-        tipo: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: {
-              tableName: 'tipo_arquivo',
-            },
-            key: 'id',
-          },
-        },
         original_name: {
           type: DataTypes.STRING(255),
           allowNull: false,
@@ -33,10 +23,14 @@ class Arquivo extends Model {
       },
       {
         sequelize,
-        modelName: 'arquivo',
         freezeTableName: true,
       },
     );
+  }
+
+  static associate(models) {
+    this.belongsTo(models.TipoArquivo, { foreignKey: 'tipo_id', as: 'tipo' });
+    this.belongsTo(models.Norma, { foreignKey: 'norma_id', as: 'norma' });
   }
 }
 

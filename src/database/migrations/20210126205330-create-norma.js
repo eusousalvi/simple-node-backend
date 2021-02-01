@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('norma', {
+    await queryInterface.createTable('Norma', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -27,13 +27,15 @@ module.exports = {
       },
       agrupamento_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: {
-            tableName: 'agrupamento',
+            tableName: 'Agrupamento',
           },
           key: 'id',
         },
-        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'NO ACTION',
       },
       ultima_versao: {
         type: Sequelize.BOOLEAN,
@@ -44,27 +46,18 @@ module.exports = {
         allowNull: false,
       },
       depreciado: {
-        type: Sequelize.STRING(255),
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       ativo: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      arquivo: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: {
-            tableName: 'arquivo',
-          },
-          key: 'id',
-        },
-      },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -72,6 +65,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('norma');
+    await queryInterface.dropTable('Norma');
   },
 };

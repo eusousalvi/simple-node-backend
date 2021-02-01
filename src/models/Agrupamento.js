@@ -15,10 +15,12 @@ class Agrupamento extends Model {
       },
       {
         sequelize,
-        modelName: 'agrupamento',
         freezeTableName: true,
       },
     );
+  }
+  static associate(models) {
+    this.hasMany(models.Norma, { foreignKey: 'agrupamento_id', as: 'normas' });
   }
 }
 

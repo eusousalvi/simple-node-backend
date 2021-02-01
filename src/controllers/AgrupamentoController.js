@@ -1,6 +1,8 @@
 const Agrupamento = require('../models/Agrupamento');
 
+//Controller para manipulação da tabela Agrupamento
 module.exports = {
+  // Lista todos os Agrupamentos
   async index(req, res) {
     try {
       const agrupamentos = await Agrupamento.findAll();
@@ -9,6 +11,8 @@ module.exports = {
       return res.json(error);
     }
   },
+
+  // Salva um Agrupamento no Banco de Dados
   async store(req, res) {
     const { agrupamento } = req.body;
 

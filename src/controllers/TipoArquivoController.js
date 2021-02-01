@@ -1,14 +1,7 @@
 const TipoArquivo = require('../models/TipoArquivo');
 
 module.exports = {
-  async index(req, res) {
-    try {
-      const tiposArquivo = await TipoArquivo.findAll();
-      return res.json(tiposArquivo);
-    } catch (error) {
-      return res.json(error);
-    }
-  },
+  // Salva um Tipo de Arquivo no Banco de Dados
   async store(req, res) {
     const { tipoArquivo } = req.body;
 
@@ -18,5 +11,14 @@ module.exports = {
     } catch (error) {
       return res.json(error);
     }
+  },
+
+  // Retorna o ID do tipo de arquivo enviado
+  async getId(file) {
+    let tiposArquivos = await TipoArquivo.findAll();
+    tiposArquivos = tiposArquivos.reduce((tipos, tipo) => [...tipos, { ...tipo.dataValues }], []);
+    const { id } = tiposArquivos.find((tipo) => tipo.mime === file.mimetype);
+
+    return id;
   },
 };

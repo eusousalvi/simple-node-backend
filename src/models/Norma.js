@@ -20,16 +20,6 @@ class Norma extends Model {
           type: DataTypes.TEXT,
           allowNull: false,
         },
-        agrupamento_id: {
-          type: DataTypes.INTEGER,
-          references: {
-            model: {
-              tableName: 'agrupamento',
-            },
-            key: 'id',
-          },
-          allowNull: false,
-        },
         ultima_versao: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
@@ -45,23 +35,17 @@ class Norma extends Model {
           type: DataTypes.BOOLEAN,
           allowNull: false,
         },
-        arquivo: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: {
-              tableName: 'arquivo',
-            },
-            key: 'id',
-          },
-        },
       },
       {
         sequelize,
-        modelName: 'norma',
         freezeTableName: true,
       },
     );
+  }
+
+  static associate(models) {
+    this.hasOne(models.Arquivo, { foreignKey: 'norma_id', as: 'arquivo' });
+    this.belongsTo(models.Agrupamento, { foreignKey: 'agrupamento_id', as: 'agrupamento' });
   }
 }
 

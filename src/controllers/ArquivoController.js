@@ -1,22 +1,26 @@
 const Arquivo = require('../models/Arquivo');
+const TipoArquivo = require('../controllers/TipoArquivoController');
+require('dotenv/config');
 
+//Controller para manipulação da tabela Arquivo
 module.exports = {
-  async index(req, res) {
-    try {
-      const arquivo = await Arquivo.findAll();
-      return res.json(arquivo);
-    } catch (error) {
-      return res.json(error);
-    }
-  },
-  async store(req, res) {
-    const { arquivo } = req.body;
+  // Salva um arquivo no Banco de Dados
+  async store(file, norma_id) {
+    const tipo_id = await TipoArquivo.getId(file);
+    const arquivo = {
+      tipo_id,
+      original_name: file.originalname,
+      hash_name: file.filename,
+      thumbnail: process.env.APP_URL,
+      link: `${process.env.APP_URL}arquivos/${file.filename}`,
+      norma_id,
+    };
 
     try {
       const arquivoSalvo = await Arquivo.create(arquivo);
-      return res.json(arquivoSalvo);
+      return arquivoSalvo;
     } catch (error) {
-      return res.json(error);
+      return error;
     }
   },
 };

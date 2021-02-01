@@ -11,10 +11,12 @@ class TipoArquivo extends Model {
       },
       {
         sequelize,
-        modelName: 'tipo_arquivo',
         freezeTableName: true,
       },
     );
+  }
+  static associate(models) {
+    this.hasMany(models.Arquivo, { foreignKey: 'tipo_id', as: 'arquivos' });
   }
 }
 
