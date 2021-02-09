@@ -46,6 +46,12 @@ class Norma extends Model {
   static associate(models) {
     this.hasOne(models.Arquivo, { foreignKey: 'norma_id', as: 'arquivo' });
     this.belongsTo(models.Agrupamento, { foreignKey: 'agrupamento_id', as: 'agrupamento' });
+    this.hasMany(models.Norma, {
+      foreignKey: 'nr_norma',
+      sourceKey: 'nr_norma',
+      useJunctionTable: false,
+      as: 'versoes',
+    });
   }
 }
 

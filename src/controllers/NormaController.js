@@ -10,7 +10,7 @@ module.exports = {
     try {
       const { searchTerm } = req.params;
       const norma = await Norma.findAll({
-        include: { association: 'arquivo' },
+        include: [{ all: true, nested: true }],
         where: {
           [Op.or]: [
             {
@@ -27,6 +27,11 @@ module.exports = {
               tag: {
                 [Op.like]: `%${searchTerm}%`,
               },
+            },
+          ],
+          [Op.and]: [
+            {
+              ativo: true,
             },
           ],
         },

@@ -4,6 +4,7 @@ const TipoArquivo = require('../models/TipoArquivo');
 const Agrupamento = require('../models/Agrupamento');
 const Norma = require('../models/Norma');
 const Arquivo = require('../models/Arquivo');
+const Usuario = require('../models/Usuario');
 
 const connection = new Sequelize(dbConfig);
 
@@ -12,6 +13,7 @@ TipoArquivo.init(connection);
 Agrupamento.init(connection);
 Norma.init(connection);
 Arquivo.init(connection);
+Usuario.init(connection);
 
 // Enviando as Models para realizar a associação entre tabelas
 TipoArquivo.associate(connection.models);

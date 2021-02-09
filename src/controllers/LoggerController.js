@@ -7,8 +7,5 @@ module.exports = (error, req) => {
     METHOD: req.method,
     URL: req.originalUrl,
     IP: req.ip,
-    CODE_ERROR: error.parent.code,
-    ERROR_MESSAGE: error.parent.message,
-    SQL_QUERY: error.parent.sql,
   });
 };
